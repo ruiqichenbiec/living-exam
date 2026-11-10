@@ -1,0 +1,9 @@
+# downloaded copies of KaTeX and the fonts; tools/build-offline.mjs fetches them again when missing
+vendor/
+# build output that docs/index.html duplicates
+offline/
+# working files of the film: masters, the silent cut, the music track (the finished film is docs/showcase.mp4)
+video/
+# the first throwaway prototype
+prototype/
+node_modules/

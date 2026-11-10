@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Real Analysis, Paper 2</title>
+<meta name="description" content="An examination paper in real analysis, printed in kinetic ink: six questions on metrics, series and measure whose figures are alive.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The exam paper that moves">
+<meta property="og:description" content="Real Analysis, Paper 2: six questions on metrics, series and measure whose figures are alive. Candidates should not attempt to hold a figure still.">
+<meta property="og:url" content="https://ruiqichenbiec.github.io/living-exam/">
+<meta property="og:image" content="https://ruiqichenbiec.github.io/living-exam/cover.jpg">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Jost:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="paper.css">
+</head>
+<body>
+<!--
+THESIS: an ordinary examination booklet, typeset as such, whose figures happen to be alive. Refuses the "interactive explainer" layout.
+OWN-WORLD: cool grey-white stock, black letterpress, Computer Modern text and maths, Futura-like labels; ONE spot ink (ultramarine).
+           Rule: black ink never moves; anything blue is alive. Ambient motion ticks at 12 frames a second, like a flip-book.
+STORY: first glance, a paper you have sat before; second glance, the date is today's, the clock runs, and every figure is at work.
+FIRST VIEWPORT: masthead with seal and barcode, candidate boxes, subject line, instructions. Nothing announces interactivity.
+The Meridian Joint Board of Examinations is fictitious.
+-->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="hatch-k" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="5" stroke="var(--ink)" stroke-width="1.1"/>
+    </pattern>
+    <pattern id="hatch-b" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="4" stroke="var(--live)" stroke-width="1.7"/>
+    </pattern>
+  </defs>
+</svg>
+
+<main class="desk">
+
+  <!-- =============== 1  COVER =============== -->
+  <article class="sheet cover" aria-label="Front cover">
+    <header class="mast">
+      <svg class="seal" viewBox="-40 -40 80 80" role="img" aria-label="Seal of the Board">
+        <defs><path id="sealarc" d="M -26.6 0 A 26.6 26.6 0 1 1 26.6 0 A 26.6 26.6 0 1 1 -26.6 0"/></defs>
+        <circle class="k" r="37" stroke-width="1.5"/>
+        <circle class="k" r="33.6" stroke-width=".6"/>
+        <text><textPath href="#sealarc" startOffset="0">MERIDIAN JOINT BOARD · EXAMINATIONS · MCMLVIII ·</textPath></text>
+        <circle class="k" r="21.5" stroke-width=".6"/>
+        <g transform="rotate(-18)">
+          <circle class="k" r="17" stroke-width="1.1"/>
+          <line class="k" x1="-17" x2="17" stroke-width=".8"/>
+          <line class="k" x1="-14.2" x2="14.2" y1="-9.4" y2="-9.4" stroke-width=".6"/>
+          <line class="k" x1="-14.2" x2="14.2" y1="9.4" y2="9.4" stroke-width=".6"/>
+          <g id="meridians"></g>
+        </g>
+      </svg>
+      <div>
+        <p class="board">Meridian Joint Board of Examinations</p>
+        <p class="award">Higher Certificate in Mathematics</p>
+      </div>
+      <div class="barcode" aria-hidden="true"><svg id="bars" viewBox="0 0 150 44" preserveAspectRatio="none"></svg><span>4172/02/N/26</span></div>
+    </header>
+
+    <div class="idbox">
+      <div class="idrow">
+        <label for="cname">Candidate name</label>
+        <input id="cname" class="hand name-in" maxlength="30" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="idrow">
+        <span>Centre number</span><span class="comb" data-n="5" data-label="Centre number"></span>
+        <span class="gap">Candidate number</span><span class="comb" data-n="4" data-label="Candidate number"></span>
+      </div>
+    </div>
+
+    <div class="subject">
+      <h1>Real Analysis</h1>
+      <p class="code">4172/02</p>
+      <p class="paper"><b>Paper 2</b>Metrics, Series and Measure</p>
+      <p class="when"><span class="live" id="today">Tuesday 10 November 2026 &ensp;Morning</span></p>
+      <p class="dur">
+        <span>3 hours</span>
+        <svg class="clock" viewBox="-20 -20 40 40" role="img" aria-label="Clock showing the present time">
+          <circle class="k" r="18" stroke-width="1.2"/>
+          <g id="clockticks"></g>
+          <line class="b" id="hh" y2="-9" stroke-width="2"/>
+          <line class="b" id="mh" y2="-14" stroke-width="1.4"/>
+          <line class="b" id="sh" y1="3.5" y2="-15.5" stroke-width=".7"/>
+          <circle r="1.3" fill="var(--live)"/>
+        </svg>
+      </p>
+    </div>
+    <p class="materials">Candidates answer in the separate Answer Booklet. No additional materials are required.</p>
+
+    <div class="rules">
+      <h2>Read these instructions first</h2>
+      <p>Write your name, Centre number and candidate number in the spaces at the top of this page.</p>
+      <p>Write in dark blue or black pen. A soft pencil may be used for diagrams.</p>
+      <p>Answer <b>all six</b> questions. Begin each answer on a new page of the Answer Booklet.</p>
+      <p>Results from the syllabus may be quoted without proof unless a proof is required by the question. Any result quoted must be stated clearly.</p>
+      <p>The use of calculators is not permitted.</p>
+
+      <h2>Information for candidates</h2>
+      <p>The number of marks is given in brackets [&nbsp;] at the end of each question or part question. Each question carries 20 marks. The total number of marks for this paper is 120.</p>
+      <p>Figures printed in <span class="live">blue</span> are set in kinetic ink. They are drawn to life, not to scale. A figure bearing the mark
+        <svg class="mark-inline" viewBox="-10 -10 20 20" aria-label="registration mark"><circle r="5.2"/><path d="M-9 0H9M0-9V9"/></svg>
+        may be moved by hand. Candidates should not attempt to hold a figure still.</p>
+      <p>Rough working may be done on page 8.</p>
+    </div>
+
+    <div class="cover-foot">
+      <p>This document consists of <b>8</b> printed pages.</p>
+      <table class="examiner">
+        <caption>For Examiner&rsquo;s use</caption>
+        <tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>Total</th></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </table>
+    </div>
+
+    <footer class="foot"><span>&copy; MJBE 2026</span><span>4172/02/N/26</span><span class="turn">[Turn over</span></footer>
+  </article>
+
+  <!-- =============== 2  QUESTION 1 =============== -->
+  <article class="sheet" aria-label="Page 2">
+    <div class="margin-note" aria-hidden="true"><span>Do not write in this margin</span><span>Do not write in this margin</span></div>
+    <p class="pageno">2</p>
+    <h2 class="section">Section A: Metric Spaces</h2>
+
+    <section class="question">
+      <div class="qn">1</div>
+      <div class="qbody">
+        <p>For points $u = (u_1, u_2)$ and $v = (v_1, v_2)$ of $\mathbb{R}^2$, and for a real number $p \ge 1$, let
+          $$d_p(u,v) = \bigl(|u_1 - v_1|^p + |u_2 - v_2|^p\bigr)^{1/p}, \qquad d_\infty(u,v) = \max\bigl\{|u_1 - v_1|,\ |u_2 - v_2|\bigr\}.$$</p>
+
+        <div class="part"><span class="pl">(a)</span>
+          <p>Show that $d_1$ and $d_\infty$ are metrics on $\mathbb{R}^2$.</p>
+          <span class="mk">[5]</span></div>
+
+        <div class="part"><span class="pl">(b)</span>
+          <p>Prove that, for all $u$ and $v$ in $\mathbb{R}^2$,
+            $$d_\infty(u,v) \;\le\; d_2(u,v) \;\le\; d_1(u,v) \;\le\; 2\,d_\infty(u,v).$$
+            Deduce that a subset of $\mathbb{R}^2$ is open with respect to $d_1$ if and only if it is open with respect to $d_\infty$.</p>
+          <span class="mk">[7]</span></div>
+
+        <div class="part"><span class="pl">(c)</span>
+          <p>Show that $d_p(u,v) \to d_\infty(u,v)$ as $p \to \infty$, for every $u$ and $v$ in $\mathbb{R}^2$.</p>
+          <span class="mk">[4]</span></div>
+
+        <figure class="fig" id="fig1">
+          <div class="liveline" aria-hidden="true">
+            <span class="grp">$p$ = <span class="v" id="f1p" style="min-width:2.5em">2.00</span></span>
+            <span class="grp">$d_p(O,B)$ = <span class="v" id="f1d" style="min-width:2.9em">1.414</span>
+              <span class="v c" id="f1r" style="min-width:1.3em">&lt;</span> 2 = $d_p(O,A) + d_p(A,B)$</span>
+          </div>
+          <div class="plotwrap" style="width:340px">
+            <svg class="plot" id="plot1" viewBox="0 0 340 352" width="340" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+          <figcaption><b>Fig. 1</b>The set of points $u$ with $d_p(O,u) = 1$, where $O = (0,0)$, $A = (1,0)$ and $B = (1,1)$. The outlines for $p = 1$, $2$ and $\infty$ are printed in black.
+            <svg class="mark-inline" viewBox="-10 -10 20 20" aria-hidden="true"><circle r="5.2"/><path d="M-9 0H9M0-9V9"/></svg>
+            Slide the pointer along the scale to choose $p$.</figcaption>
+        </figure>
+
+        <div class="part"><span class="pl">(d)</span>
+          <p>The formula for $d_p$ also makes sense when $0 &lt; p &lt; 1$. By considering the points $O$, $A$ and $B$ of Fig.&nbsp;1, show that $d_{1/2}$ is not a metric on $\mathbb{R}^2$.</p>
+          <span class="mk">[4]</span></div>
+
+        <p class="total">[Total: 20]</p>
+      </div>
+    </section>
+
+    <footer class="foot"><span>&copy; MJBE 2026</span><span>4172/02/N/26</span><span class="turn">[Turn over</span></footer>
+  </article>
+
+  <!-- =============== 3  QUESTION 2 =============== -->
+  <article class="sheet" aria-label="Page 3">
+    <div class="margin-note" aria-hidden="true"><span>Do not write in this margin</span><span>Do not write in this margin</span></div>
+    <p class="pageno">3</p>
+
+    <section class="question">
+      <div class="qn">2</div>
+      <div class="qbody">
+        <p>Let $(X,d)$ be a non-empty complete metric space, and let $T \colon X \to X$ be a map for which there is a constant $c$ with $0 \le c &lt; 1$ and
+          $d(Tx, Ty) \le c\,d(x,y)$ for all $x, y \in X$.</p>
+
+        <div class="part"><span class="pl">(a)</span>
+          <p>Show that $T$ has at most one fixed point.</p>
+          <span class="mk">[2]</span></div>
+
+        <div class="part"><span class="pl">(b)</span>
+          <p>Let $x_0 \in X$ and let $x_{n+1} = T x_n$ for $n \ge 0$. Show that
+            $$d(x_n, x_m) \;\le\; \frac{c^{\,n}}{1-c}\, d(x_0, x_1) \qquad \text{whenever } m > n \ge 0,$$
+            and deduce that $T$ has a fixed point.</p>
+          <span class="mk">[8]</span></div>
+
+        <figure class="fig" id="fig2">
+          <div class="liveline" aria-hidden="true">
+            <span class="grp">$\lambda$ = <span class="v" id="f2l" style="min-width:2.1em">0.45</span></span>
+            <span class="grp">$d(x_n, x^*)$ = <span id="f2d"></span> mm</span>
+          </div>
+          <div class="plotwrap" style="width:250px">
+            <svg class="plot" id="plot2" viewBox="0 0 250 345" width="250" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+          <figcaption><b>Fig. 2</b>A reduced copy of this page lying on the page. The copy shows the copy, and so on.
+            <svg class="mark-inline" viewBox="-10 -10 20 20" aria-hidden="true"><circle r="5.2"/><path d="M-9 0H9M0-9V9"/></svg>
+            Move the copy by the mark at its centre; turn it and change its size by the mark at its corner. Touch the page to choose a point $x_0$: each step carries a point to the place where the copy shows it.</figcaption>
+        </figure>
+
+        <div class="part"><span class="pl">(c)</span>
+          <p>A copy of this page, reduced in the ratio $\lambda : 1$ where $0 &lt; \lambda &lt; 1$, is laid flat upon the page and lies wholly within it, as in Fig.&nbsp;2. Prove that exactly one point of the copy lies directly over the point of the page which it depicts.</p>
+          <span class="mk">[5]</span></div>
+
+        <div class="part"><span class="pl">(d)</span>
+          <p>Give an example of a non-empty complete metric space $(X,d)$ and a map $T \colon X \to X$ with $d(Tx,Ty) &lt; d(x,y)$ whenever $x \ne y$, but with no fixed point. Justify your answer.</p>
+          <span class="mk">[5]</span></div>
+
+        <p class="total">[Total: 20]</p>
+      </div>
+    </section>
+
+    <footer class="foot"><span>&copy; MJBE 2026</span><span>4172/02/N/26</span><span class="turn">[Turn over</span></footer>
+  </article>
+
+  <!-- =============== 4  QUESTION 3 =============== -->
+  <article class="sheet" aria-label="Page 4">
+    <div class="margin-note" aria-hidden="true"><span>Do not write in this margin</span><span>Do not write in this margin</span></div>
+    <p class="pageno">4</p>
+    <h2 class="section">Section B: Series</h2>
+
+    <section class="question">
+      <div class="qn">3</div>
+      <div class="qbody">
+        <p>For each integer $n \ge 1$ let $a_n = \dfrac{(-1)^{n+1}}{n}$, so that $\sum a_n$ is the alternating harmonic series $1 - \tfrac12 + \tfrac13 - \tfrac14 + \cdots$.</p>
+
+        <div class="part"><span class="pl">(a)</span>
+          <p>Show that $\displaystyle\sum_{n=1}^{\infty} a_n$ converges, and that it does not converge absolutely.</p>
+          <span class="mk">[4]</span></div>
+
+        <div class="part"><span class="pl">(b)</span>
+          <p>Let $x$ be a real number. Prove that there is a bijection $\sigma \colon \mathbb{N} \to \mathbb{N}$ such that
+            $$\sum_{n=1}^{\infty} a_{\sigma(n)} = x .$$</p>
+          <span class="mk">[9]</span></div>
+
+        <figure class="fig" id="fig3">
+          <div class="tray" aria-hidden="true">
+            <span class="lhs" id="xval">0.693</span><span class="eq">=</span>
+            <span class="sorts" id="sorts"></span>
+            <span class="tail"><span class="sg">+</span>&#8943;</span>
+          </div>
+          <div class="plotwrap">
+            <svg class="plot" id="plot3" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+          <figcaption><b>Fig. 3</b>The first eighty partial sums $S_n$ of a rearrangement of $\sum a_n$. Positive terms are set until the sum exceeds $x$, then negative terms until it falls <span class="nw">below $x$,</span> and so on.
+            <svg class="mark-inline" viewBox="-10 -10 20 20" aria-hidden="true"><circle r="5.2"/><path d="M-9 0H9M0-9V9"/></svg>
+            Slide the rule to choose $x$. Of the eighty terms shown, <span class="n" id="npos">40</span> are positive and <span class="n" id="nneg">40</span> negative.</figcaption>
+        </figure>
+
+        <div class="part"><span class="pl">(c)</span>
+          <p>You are given that $\sum_{n=1}^{\infty} a_n = \ln 2$. In the rearrangement
+            $$1 + \tfrac13 - \tfrac12 + \tfrac15 + \tfrac17 - \tfrac14 + \tfrac19 + \tfrac1{11} - \tfrac16 + \cdots$$
+            two positive terms are followed by one negative term throughout. Find its sum.</p>
+          <span class="mk">[5]</span></div>
+
+        <div class="part"><span class="pl">(d)</span>
+          <p>State, with a reason, whether the result of part (b) still holds when $a_n$ is replaced by $(-1)^{n+1}/n^2$.</p>
+          <span class="mk">[2]</span></div>
+
+        <p class="total">[Total: 20]</p>
+      </div>
+    </section>
+
+    <footer class="foot"><span>&copy; MJBE 2026</span><span>4172/02/N/26</span><span class="turn">[Turn over</span></footer>
+  </article>
+
+  <!-- =============== 5  QUESTION 4 =============== -->
+  <article class="sheet" aria-label="Page 5">
+    <div class="margin-note" aria-hidden="true"><span>Do not write in this margin</span><span>Do not write in this margin</span></div>
+    <p class="pageno">5</p>
+
+    <section class="question">
+      <div class="qn">4</div>
+      <div class="qbody">
+        <p>For each integer $n \ge 1$ let $H_n = 1 + \tfrac12 + \tfrac13 + \cdots + \tfrac1n$.</p>
+
+        <div class="part"><span class="pl">(a)</span>
+          <p>Show that $H_{2^m} \ge 1 + \tfrac12 m$ for every integer $m \ge 0$, and deduce that the series $\sum \tfrac1n$ diverges.</p>
+          <span class="mk">[5]</span></div>
+
+        <div class="part"><span class="pl">(b)</span>
+          <p>Show that $\ln(n+1) \le H_n \le 1 + \ln n$ for every $n \ge 1$.</p>
+          <span class="mk">[5]</span></div>
+
+        <div class="part"><span class="pl">(c)</span>
+          <p>Let $\gamma_n = H_n - \ln n$. Show that the sequence $(\gamma_n)$ is decreasing and bounded below, and hence that it converges.</p>
+          <span class="mk">[5]</span></div>
+
+        <figure class="fig" id="fig4">
+          <div class="liveline" aria-hidden="true">
+            <span class="grp">$n$ = <span class="v" id="f4n" style="min-width:1.3em">31</span></span>
+            <span class="grp">overhang = $\tfrac12 H_n$ = <span class="v" id="f4o" style="min-width:3.3em">2.0136</span> lengths</span>
+          </div>
+          <div class="plotwrap">
+            <svg class="plot" id="plot4" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+          <figcaption><b>Fig. 4</b>Copies of this booklet stacked at the edge of a desk. The $k$th booklet from the top projects $\tfrac{1}{2k}$ of a booklet length beyond the one beneath it.
+            <svg class="mark-inline" viewBox="-10 -10 20 20" aria-hidden="true"><circle r="5.2"/><path d="M-9 0H9M0-9V9"/></svg>
+            Slide the pointer to choose the number $n$ of booklets.</figcaption>
+        </figure>
+
+        <div class="part"><span class="pl">(d)</span>
+          <p>In Fig.&nbsp;4 the stack is in equilibrium, and the top booklet projects $\tfrac12 H_n$ booklet lengths beyond the edge of the desk. Show that at least $21$ booklets are needed for it to project more than two booklet lengths, and that $54$ booklets are certainly enough. [You may assume that $20 &lt; e^3$ and that $e^4 &lt; 55$.]</p>
+          <span class="mk">[5]</span></div>
+
+        <p class="total">[Total: 20]</p>
+      </div>
+    </section>
+
+    <footer class="foot"><span>&copy; MJBE 2026</span><span>4172/02/N/26</span><span class="turn">[Turn over</span></footer>
+  </article>
+
+  <!-- =============== 6  QUESTION 5 =============== -->
+  <article class="sheet" aria-label="Page 6">
+    <div class="margin-note" aria-hidden="true"><span>Do not write in this margin</span><span>Do not write in this margin</span></div>
+    <p class="pageno">6</p>
+    <h2 class="section">Section C: Measure</h2>
+
+    <section class="question">
+      <div class="qn">5</div>
+      <div class="qbody">
+        <p>Throughout this question $m$ denotes Lebesgue measure on $\mathbb{R}$. Let $C_0 = [0,1]$ and, for $n \ge 1$, let $C_n$ be obtained from $C_{n-1}$ by deleting the open middle third of each of the $2^{n-1}$ intervals of which $C_{n-1}$ consists. The Cantor set is $C = \bigcap_{n \ge 0} C_n$.</p>
+
+        <div class="part"><span class="pl">(a)</span>
+          <p>Show that $C$ is compact and that $m(C) = 0$.</p>
+          <span class="mk">[5]</span></div>
+
+        <div class="part"><span class="pl">(b)</span>
+          <p>Show that $C$ contains no interval of positive length, and that $C$ is nevertheless uncountable.</p>
+          <span class="mk">[6]</span></div>
+
+        <figure class="fig" id="fig5">
+          <div class="liveline" aria-hidden="true">
+            <span class="grp">$a$ = <span class="v" id="f5a" style="min-width:2.5em">0.333</span></span>
+            <span class="grp">$m(F_a) = \dfrac{1-3a}{1-2a}$ = <span class="v" id="f5m" style="min-width:2.5em">0.000</span></span>
+          </div>
+          <div class="plotwrap">
+            <svg class="plot" id="plot5" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+          <figcaption><b>Fig. 5</b>Stages $0$ to $6$ of the construction in part (c), with the measure of what remains at each stage. The Cantor set is the case $a = \tfrac13$.
+            <svg class="mark-inline" viewBox="-10 -10 20 20" aria-hidden="true"><circle r="5.2"/><path d="M-9 0H9M0-9V9"/></svg>
+            Slide the pointer to choose $a$.</figcaption>
+        </figure>
+
+        <div class="part"><span class="pl">(c)</span>
+          <p>Let $0 &lt; a \le \tfrac13$, and let the set $F_a$ be constructed as $C$ was, except that at stage $n$ the open interval deleted from the middle of each of the $2^{n-1}$ intervals has length $a^n$. Show that
+            $$m(F_a) = \frac{1 - 3a}{1 - 2a}.$$</p>
+          <span class="mk">[5]</span></div>
+
+        <div class="part"><span class="pl">(d)</span>
+          <p>Deduce that for every $\varepsilon > 0$ there is a closed subset of $[0,1]$ which contains no interval of positive length and whose measure exceeds $1 - \varepsilon$.</p>
+          <span class="mk">[4]</span></div>
+
+        <p class="total">[Total: 20]</p>
+      </div>
+    </section>
+
+    <footer class="foot"><span>&copy; MJBE 2026</span><span>4172/02/N/26</span><span class="turn">[Turn over</span></footer>
+  </article>
+
+  <!-- =============== 7  QUESTION 6 =============== -->
+  <article class="sheet" aria-label="Page 7">
+    <div class="margin-note" aria-hidden="true"><span>Do not write in this margin</span><span>Do not write in this margin</span></div>
+    <p class="pageno">7</p>
+
+    <section class="question">
+      <div class="qn">6</div>
+      <div class="qbody">
+        <p>Each integer $n \ge 1$ can be written in exactly one way as $n = 2^k + j$ with integers $k \ge 0$ and $0 \le j &lt; 2^k$. Let $f_n \colon [0,1] \to \mathbb{R}$ be the indicator function of the interval $\bigl[\,j/2^k,\ (j+1)/2^k\,\bigr]$, and let $m$ denote Lebesgue measure on $[0,1]$.</p>
+
+        <figure class="fig" id="fig6">
+          <div class="liveline" aria-hidden="true">
+            <span class="grp">$n$ = <span class="v" id="f6n" style="min-width:1.7em">22</span> = 2<sup class="v" id="f6k">4</sup> + <span class="v" id="f6j" style="min-width:1.1em">6</span></span>
+            <span class="grp">$\displaystyle\int f_n\,dm$ = <span class="v fr"><span>1</span><span id="f6w">16</span></span></span>
+            <span class="grp">$f_n(x)$ = <span class="v" id="f6f">0</span></span>
+          </div>
+          <div class="plotwrap">
+            <svg class="plot" id="plot6" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+          <div class="tape" aria-hidden="true"><span>$f_1(x), f_2(x), \ldots$</span><span class="run" id="f6tape"></span></div>
+          <figcaption><b>Fig. 6</b>The function $f_n$, shaded, steps across $[0,1]$ as $n$ increases and halves in width at the start of each pass. Beneath it are typed the values $f_1(x), f_2(x), \ldots$ at the marked point $x$.
+            <svg class="mark-inline" viewBox="-10 -10 20 20" aria-hidden="true"><circle r="5.2"/><path d="M-9 0H9M0-9V9"/></svg>
+            Slide the point $x$. It has been struck <span class="n" id="f6hits">0</span> times.</figcaption>
+        </figure>
+
+        <div class="part"><span class="pl">(a)</span>
+          <p>Show that $\displaystyle\int f_n\,dm \to 0$ as $n \to \infty$, and deduce that $f_n \to 0$ in measure.</p>
+          <span class="mk">[4]</span></div>
+
+        <div class="part"><span class="pl">(b)</span>
+          <p>Show that for every $x \in [0,1]$ the sequence $\bigl(f_n(x)\bigr)$ does not converge.</p>
+          <span class="mk">[5]</span></div>
+
+        <div class="part"><span class="pl">(c)</span>
+          <p>Find a subsequence of $(f_n)$ which converges to $0$ almost everywhere, and prove that it does so.</p>
+          <span class="mk">[5]</span></div>
+
+        <div class="part"><span class="pl">(d)</span>
+          <p>State the dominated convergence theorem. Explain why it cannot be applied to the sequence $(f_n)$, although its conclusion holds for this sequence.</p>
+          <span class="mk">[6]</span></div>
+
+        <p class="total">[Total: 20]</p>
+        <p class="endpaper">End of question paper</p>
+      </div>
+    </section>
+
+    <footer class="foot"><span>&copy; MJBE 2026</span><span>4172/02/N/26</span><span></span></footer>
+  </article>
+
+  <!-- =============== 8  BLANK PAGE =============== -->
+  <article class="sheet blank" aria-label="Page 8">
+    <svg id="scribble" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Space for rough working: draw here with a mouse or a pen"></svg>
+    <p class="pageno">8</p>
+    <p class="bp">Blank page</p>
+    <p class="rough">This page may be used for rough working. Rough working will not be marked.</p>
+    <button class="erase" id="erase" type="button" hidden>Rub out rough working</button>
+    <p class="colophon">Set in Computer Modern and printed in two workings, black and kinetic blue, on the Board&rsquo;s own stock. Figures continue to move after the examination has ended; this is normal, and the booklet need not be returned to the invigilator on that account. The Meridian Joint Board of Examinations is fictitious, and so, regrettably, is the ink.</p>
+    <footer class="foot"><span>&copy; MJBE 2026</span><span>4172/02/N/26</span><span></span></footer>
+  </article>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script src="js/paper.js"></script>
+<script src="js/fig1.js"></script>
+<script src="js/fig2.js"></script>
+<script src="js/fig3.js"></script>
+<script src="js/fig4.js"></script>
+<script src="js/fig5.js"></script>
+<script src="js/fig6.js"></script>
+<script>Paper.start();</script>
+</body>
+</html>
